@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Checklist da fatura Inter – 07/10/2026</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --surface: #ffffff;
+    --ink: #1d1a17;
+    --muted: #6f675f;
+    --line: #e6dfd5;
+    --accent: #ff7a00;
+    --accent-ink: #ffffff;
+    --check-bg: #fff1e0;
+    --bar: #1d1a17;
+    --bar-ink: #faf7f2;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17140f; --surface: #211d17; --ink: #f3ede4; --muted: #a39a8e;
+      --line: #342e26; --check-bg: #3a2a14; --bar: #f3ede4; --bar-ink: #17140f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17140f; --surface: #211d17; --ink: #f3ede4; --muted: #a39a8e;
+    --line: #342e26; --check-bg: #3a2a14; --bar: #f3ede4; --bar-ink: #17140f;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px; line-height: 1.4;
+    padding-bottom: 150px;
+  }
+  main { max-width: 560px; margin: 0 auto; padding: 20px 16px 0; }
+  h1 { font-size: 1.6rem; line-height: 1.15; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin: 0 0 18px; }
+  .how {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px; margin-bottom: 18px;
+  }
+  .how ol { margin: 6px 0 0; padding-left: 20px; }
+  .how li { margin: 3px 0; }
+  label.name { display: block; font-weight: 600; margin-bottom: 6px; }
+  input[type="text"] {
+    width: 100%; font: inherit; color: var(--ink); background: var(--surface);
+    border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px;
+  }
+  input[type="text"]:focus { outline: 3px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  h2 { font-size: 1.1rem; margin: 28px 0 4px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  h2 .tot { font-weight: 500; color: var(--muted); font-size: 0.95rem; white-space: nowrap; }
+  ul.list { list-style: none; margin: 8px 0 0; padding: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
+  ul.list li + li { border-top: 1px solid var(--line); }
+  .row {
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px; cursor: pointer;
+    min-height: 56px;
+  }
+  .row:has(input:checked) { background: var(--check-bg); }
+  .row input {
+    appearance: none; -webkit-appearance: none; flex: none;
+    width: 26px; height: 26px; border: 2px solid var(--muted); border-radius: 7px; margin: 0;
+    display: grid; place-content: center; background: var(--surface); cursor: pointer;
+  }
+  .row input::after {
+    content: ""; width: 12px; height: 7px; border-left: 3px solid var(--accent-ink); border-bottom: 3px solid var(--accent-ink);
+    transform: rotate(-45deg) translate(1px, -1px); opacity: 0;
+  }
+  .row input:checked { background: var(--accent); border-color: var(--accent); }
+  .row input:checked::after { opacity: 1; }
+  .row input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .info { flex: 1; min-width: 0; }
+  .desc { font-weight: 600; overflow-wrap: anywhere; }
+  .meta { color: var(--muted); font-size: 0.88rem; }
+  .val { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  .note { color: var(--muted); font-size: 0.88rem; margin-top: 18px; }
+
+  .bar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: var(--bar); color: var(--bar-ink);
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+  .bar-in { max-width: 560px; margin: 0 auto; }
+  .sum { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .sum strong { font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+  .btns { display: flex; gap: 8px; }
+  button {
+    font: inherit; font-weight: 600; border: 0; border-radius: 10px; padding: 12px 14px; cursor: pointer; flex: 1;
+  }
+  .primary { background: var(--accent); color: var(--accent-ink); }
+  .secondary { background: transparent; color: var(--bar-ink); border: 2px solid var(--bar-ink); }
+  button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .toast { font-size: 0.9rem; margin-top: 8px; min-height: 1.2em; }
+  textarea {
+    width: 100%; min-height: 150px; margin-top: 8px; font: inherit; font-size: 0.9rem; border-radius: 8px; border: 0; padding: 8px;
+    background: var(--bg); color: var(--ink);
+  }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .row, .row input { transition: background-color .15s, border-color .15s; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Fatura Inter – vence 07/10/2026</h1>
+  <p class="sub">Total da fatura: R$ 4.709,58</p>
+
+  <div class="how">
+    <strong>Como usar</strong>
+    <ol>
+      <li>Escreva seu nome.</li>
+      <li>Marque só as compras que foram suas.</li>
+      <li>Toque em “Enviar no WhatsApp” lá embaixo.</li>
+    </ol>
+  </div>
+
+  <label class="name" for="who">Seu nome</label>
+  <input type="text" id="who" placeholder="Ex.: Maria" autocomplete="given-name">
+
+  <div id="lists"></div>
+
+  <p class="note">Os pagamentos on-line de 04/09 e 06/09 (créditos) não entram na lista: são pagamentos da fatura anterior.</p>
+</main>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="sum"><span id="count">0 itens marcados</span><strong id="total">R$ 0,00</strong></div>
+    <div class="btns">
+      <button class="primary" id="wa" type="button">Enviar no WhatsApp</button>
+      <button class="secondary" id="copy" type="button">Copiar</button>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <textarea id="fallback" class="hidden" readonly aria-label="Resumo para copiar"></textarea>
+  </div>
+</div>
+
+<script>
+// [data, descrição, valor em centavos]
+const CARDS = [
+  { name: "Cartão final 5157", items: [
+    ["09/05/2026","REC IMPORTADOS (parcela 5 de 18)",4794],
+    ["16/05/2026","RR BABY CONFECCOES LTD (parcela 5 de 10)",18150],
+    ["17/07/2026","BETO OTICA CABO (parcela 3 de 7)",7857],
+    ["17/07/2026","IMAGEMAIS (parcela 3 de 3)",12800],
+    ["24/07/2026","CABO MIX (parcela 3 de 3)",4633],
+    ["01/08/2026","ANA KELLY DA SILVA AR (parcela 2 de 6)",23333],
+    ["03/08/2026","ASSAI ATACADISTA LJ198 (parcela 2 de 2)",51144],
+    ["06/08/2026","TikTok Shop *URBANCELL (parcela 2 de 12)",12614],
+    ["09/08/2026","ASSAI ATACADISTA LJ198 (parcela 2 de 2)",21208],
+    ["15/08/2026","ASSAI ATACADISTA LJ198 (parcela 2 de 2)",21921],
+    ["30/08/2026","MP *ROBBEBIIDAS",1700],
+    ["30/08/2026","SR FARMACIA",1049],
+    ["31/08/2026","JOSINALVA JOSEFA DA SI",8250],
+    ["01/09/2026","JOAO DAMIAO DOS SANTOS",2400],
+    ["01/09/2026","JOAO DAMIAO DOS SANTOS",2150],
+    ["01/09/2026","JOAO DAMIAO DOS SANTOS",1700],
+    ["01/09/2026","E J DE SOUZA PANIFICAD",1506],
+    ["04/09/2026","MP *ROBBEBIIDAS",3200],
+    ["04/09/2026","MP *ROSTONOCHARME",5250],
+    ["05/09/2026","ASSAI ATACADISTA LJ198 (parcela 1 de 2)",55797],
+    ["05/09/2026","ASSAI ATACADISTA LJ198",3320],
+    ["07/09/2026","MP *ROBBEBIIDAS",2100],
+    ["08/09/2026","GustavoHenriqueGo",3490],
+    ["08/09/2026","MP *IRMAODAVERDUR",3100],
+    ["10/09/2026","JOAO DAMIAO DOS SANTOS",1450],
+    ["11/09/2026","JIM.COM* 64527426 WES",2100],
+    ["11/09/2026","IMAGEMAIS",11000],
+    ["12/09/2026","RESTAURANTE KI DELICIA",3100],
+    ["12/09/2026","ElisabeteCristine",2100],
+    ["12/09/2026","EmanoelJustino",13200],
+    ["13/09/2026","MP *ROBBEBIIDAS",1650],
+    ["18/09/2026","TUDO PARA PRESENTES CO (parcela 1 de 3)",3368],
+    ["20/09/2026","MP *ROBBEBIIDAS",2500],
+    ["21/09/2026","99*",1352],
+    ["23/09/2026","MP *SANDRADOBOLO",1600],
+    ["24/09/2026","IMAGEMAIS (parcela 1 de 3)",7334],
+    ["24/09/2026","ASSAI ATACADISTA LJ198 (parcela 1 de 2)",11923],
+    ["25/09/2026","JOAO DAMIAO DOS SANTOS",1500],
+    ["26/09/2026","JOAO DAMIAO DOS SANTOS",1050],
+    ["26/09/2026","JOAO DAMIAO DOS SANTOS",350],
+    ["26/09/2026","MP *ROBBEBIIDAS",2800],
+    ["27/09/2026","JOAO DAMIAO DOS SANTOS",1600],
+    ["28/09/2026","FARMA SAUDE",6000]
+  ]},
+  { name: "Cartão final 3897", items: [
+    ["25/11/2025","MP *MERCADOPOLULA (parcela 11 de 12)",44166],
+    ["04/02/2026","FERREIRACOSTACOM (parcela 8 de 8)",23748],
+    ["04/07/2026","MAGALU FL 865 (parcela 3 de 10)",18640],
+    ["02/08/2026","CEA CBO 687 ECPC (parcela 2 de 2)",11999],
+    ["02/09/2026","SHOPEE *i8fplmev53 (parcela 1 de 5)",16662],
+    ["21/09/2026","CALDINHO DA SILENE",6300]
+  ]}
+];
+
+const brl = c => "R$ " + (c/100).toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const KEY = "fatura-inter-2026-10";
+let checked = new Set();
+let who = "";
+
+try {
+  const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+  if (saved) { checked = new Set(saved.checked || []); who = saved.who || ""; }
+} catch (e) {}
+
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify({ checked: [...checked], who })); } catch (e) {}
+}
+
+const lists = document.getElementById("lists");
+const whoInput = document.getElementById("who");
+whoInput.value = who;
+
+CARDS.forEach((card, ci) => {
+  const total = card.items.reduce((s, i) => s + i[2], 0);
+  const h = document.createElement("h2");
+  h.innerHTML = "<span></span><span class='tot'></span>";
+  h.children[0].textContent = card.name;
+  h.children[1].textContent = "Total " + brl(total);
+  lists.appendChild(h);
+
+  const ul = document.createElement("ul");
+  ul.className = "list";
+  card.items.forEach((it, ii) => {
+    const id = ci + "-" + ii;
+    const li = document.createElement("li");
+    const lab = document.createElement("label");
+    lab.className = "row";
+    const cb = document.createElement("input");
+    cb.type = "checkbox"; cb.dataset.id = id; cb.checked = checked.has(id);
+    const info = document.createElement("span"); info.className = "info";
+    const d = document.createElement("div"); d.className = "desc"; d.textContent = it[1];
+    const m = document.createElement("div"); m.className = "meta"; m.textContent = it[0];
+    info.append(d, m);
+    const v = document.createElement("span"); v.className = "val"; v.textContent = brl(it[2]);
+    lab.append(cb, info, v);
+    li.appendChild(lab);
+    ul.appendChild(li);
+    cb.addEventListener("change", () => {
+      cb.checked ? checked.add(id) : checked.delete(id);
+      save(); update();
+    });
+  });
+  lists.appendChild(ul);
+});
+
+function selected() {
+  const out = [];
+  CARDS.forEach((card, ci) => card.items.forEach((it, ii) => {
+    if (checked.has(ci + "-" + ii)) out.push({ card: card.name, it });
+  }));
+  return out;
+}
+
+function update() {
+  const sel = selected();
+  const sum = sel.reduce((s, x) => s + x.it[2], 0);
+  document.getElementById("count").textContent = sel.length + (sel.length === 1 ? " item marcado" : " itens marcados");
+  document.getElementById("total").textContent = brl(sum);
+}
+
+function buildMessage() {
+  const sel = selected();
+  const sum = sel.reduce((s, x) => s + x.it[2], 0);
+  const name = whoInput.value.trim();
+  let t = "Fatura Inter 07/10/2026\n";
+  t += "Nome: " + name + "\n\n";
+  let last = "";
+  sel.forEach(x => {
+    if (x.card !== last) { t += (last ? "\n" : "") + x.card + "\n"; last = x.card; }
+    t += "- " + x.it[0].slice(0, 5) + " " + x.it[1] + " – " + brl(x.it[2]) + "\n";
+  });
+  t += "\nTotal: " + brl(sum);
+  return t;
+}
+
+const toast = document.getElementById("toast");
+function say(msg) { toast.textContent = msg; }
+
+function valid() {
+  if (!whoInput.value.trim()) { say("Escreva seu nome primeiro."); whoInput.focus(); return false; }
+  if (!checked.size) { say("Marque pelo menos um item."); return false; }
+  return true;
+}
+
+whoInput.addEventListener("input", () => { who = whoInput.value; save(); say(""); });
+
+document.getElementById("wa").addEventListener("click", () => {
+  if (!valid()) return;
+  const url = "https://wa.me/?text=" + encodeURIComponent(buildMessage());
+  const w = window.open(url, "_blank", "noopener");
+  if (!w) { showFallback(); say("Não abriu o WhatsApp. Copie o texto abaixo e envie."); }
+});
+
+const fb = document.getElementById("fallback");
+function showFallback() {
+  fb.value = buildMessage();
+  fb.classList.remove("hidden");
+  fb.focus(); fb.select();
+}
+
+document.getElementById("copy").addEventListener("click", async () => {
+  if (!valid()) return;
+  const text = buildMessage();
+  try {
+    await navigator.clipboard.writeText(text);
+    say("Resumo copiado. Cole na conversa com quem enviou a fatura.");
+  } catch (e) {
+    showFallback();
+    say("Selecione e copie o texto abaixo.");
+  }
+});
+
+update();
+</script>
+</body>
+</html>
