@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Checklist da fatura Inter – 07/10/2026</title>
+<title>Checklist da fatura</title>
 <style>
   :root {
     --bg: #faf7f2;
@@ -108,8 +108,8 @@
 </head>
 <body>
 <main>
-  <h1>Fatura Inter – vence 07/10/2026</h1>
-  <p class="sub">Total da fatura: R$ 4.709,58</p>
+  <h1 id="h1">Fatura</h1>
+  <p class="sub" id="sub"></p>
 
   <div class="how">
     <strong>Como usar</strong>
@@ -125,7 +125,7 @@
 
   <div id="lists"></div>
 
-  <p class="note">Os pagamentos on-line de 04/09 e 06/09 (créditos) não entram na lista: são pagamentos da fatura anterior.</p>
+  <p class="note">Pagamentos e créditos da fatura não entram na lista.</p>
 </main>
 
 <div class="bar">
@@ -142,64 +142,13 @@
 
 <script>
 // [data, descrição, valor em centavos]
-const CARDS = [
-  { name: "Cartão final 5157", items: [
-    ["09/05/2026","REC IMPORTADOS (parcela 5 de 18)",4794],
-    ["16/05/2026","RR BABY CONFECCOES LTD (parcela 5 de 10)",18150],
-    ["17/07/2026","BETO OTICA CABO (parcela 3 de 7)",7857],
-    ["17/07/2026","IMAGEMAIS (parcela 3 de 3)",12800],
-    ["24/07/2026","CABO MIX (parcela 3 de 3)",4633],
-    ["01/08/2026","ANA KELLY DA SILVA AR (parcela 2 de 6)",23333],
-    ["03/08/2026","ASSAI ATACADISTA LJ198 (parcela 2 de 2)",51144],
-    ["06/08/2026","TikTok Shop *URBANCELL (parcela 2 de 12)",12614],
-    ["09/08/2026","ASSAI ATACADISTA LJ198 (parcela 2 de 2)",21208],
-    ["15/08/2026","ASSAI ATACADISTA LJ198 (parcela 2 de 2)",21921],
-    ["30/08/2026","MP *ROBBEBIIDAS",1700],
-    ["30/08/2026","SR FARMACIA",1049],
-    ["31/08/2026","JOSINALVA JOSEFA DA SI",8250],
-    ["01/09/2026","JOAO DAMIAO DOS SANTOS",2400],
-    ["01/09/2026","JOAO DAMIAO DOS SANTOS",2150],
-    ["01/09/2026","JOAO DAMIAO DOS SANTOS",1700],
-    ["01/09/2026","E J DE SOUZA PANIFICAD",1506],
-    ["04/09/2026","MP *ROBBEBIIDAS",3200],
-    ["04/09/2026","MP *ROSTONOCHARME",5250],
-    ["05/09/2026","ASSAI ATACADISTA LJ198 (parcela 1 de 2)",55797],
-    ["05/09/2026","ASSAI ATACADISTA LJ198",3320],
-    ["07/09/2026","MP *ROBBEBIIDAS",2100],
-    ["08/09/2026","GustavoHenriqueGo",3490],
-    ["08/09/2026","MP *IRMAODAVERDUR",3100],
-    ["10/09/2026","JOAO DAMIAO DOS SANTOS",1450],
-    ["11/09/2026","JIM.COM* 64527426 WES",2100],
-    ["11/09/2026","IMAGEMAIS",11000],
-    ["12/09/2026","RESTAURANTE KI DELICIA",3100],
-    ["12/09/2026","ElisabeteCristine",2100],
-    ["12/09/2026","EmanoelJustino",13200],
-    ["13/09/2026","MP *ROBBEBIIDAS",1650],
-    ["18/09/2026","TUDO PARA PRESENTES CO (parcela 1 de 3)",3368],
-    ["20/09/2026","MP *ROBBEBIIDAS",2500],
-    ["21/09/2026","99*",1352],
-    ["23/09/2026","MP *SANDRADOBOLO",1600],
-    ["24/09/2026","IMAGEMAIS (parcela 1 de 3)",7334],
-    ["24/09/2026","ASSAI ATACADISTA LJ198 (parcela 1 de 2)",11923],
-    ["25/09/2026","JOAO DAMIAO DOS SANTOS",1500],
-    ["26/09/2026","JOAO DAMIAO DOS SANTOS",1050],
-    ["26/09/2026","JOAO DAMIAO DOS SANTOS",350],
-    ["26/09/2026","MP *ROBBEBIIDAS",2800],
-    ["27/09/2026","JOAO DAMIAO DOS SANTOS",1600],
-    ["28/09/2026","FARMA SAUDE",6000]
-  ]},
-  { name: "Cartão final 3897", items: [
-    ["25/11/2025","MP *MERCADOPOLULA (parcela 11 de 12)",44166],
-    ["04/02/2026","FERREIRACOSTACOM (parcela 8 de 8)",23748],
-    ["04/07/2026","MAGALU FL 865 (parcela 3 de 10)",18640],
-    ["02/08/2026","CEA CBO 687 ECPC (parcela 2 de 2)",11999],
-    ["02/09/2026","SHOPEE *i8fplmev53 (parcela 1 de 5)",16662],
-    ["21/09/2026","CALDINHO DA SILENE",6300]
-  ]}
-];
+const CARDS = [{"name": "Cartão final 1304 (Rosalia M D Carmo)", "items": [["08/07/2026", "VitorViniciusDa (parcela 3 de 3)", 19916], ["16/07/2026", "JIM.COM* 543-CT 5 (parcela 3 de 3)", 26665], ["10/08/2026", "JIM.COM* GED-CT N (parcela 2 de 4)", 32306], ["11/08/2026", "JIM.COM* GED-CT N (parcela 2 de 2)", 25393], ["11/08/2026", "JIM.COM* GED-CT N CAR", -1], ["13/08/2026", "JIM.COM* GED-CT N (parcela 2 de 3)", 12190], ["13/08/2026", "JIM.COM* GED-CT N CAR", -2], ["15/08/2026", "JIM.COM* GED-CT N (parcela 2 de 2)", 2822], ["15/08/2026", "ATACABOM -CT (parcela 2 de 2)", 63062], ["15/08/2026", "DK MULTIMARC-CT (parcela 2 de 2)", 5500], ["15/08/2026", "JIM.COM* GED-CT N CAR", -1], ["15/08/2026", "ATACABOM -CT", -1], ["16/08/2026", "JIM.COM* GED-CT N (parcela 2 de 2)", 5361], ["16/08/2026", "JIM.COM* GED-CT N (parcela 2 de 2)", 8577], ["09/09/2026", "VENDAS -CT", 1038], ["10/09/2026", "Antoniofranc-CT", 400], ["10/09/2026", "Antoniofranc-CT", 1550], ["10/09/2026", "POSTO CINCO -CT ELA", 11000], ["10/09/2026", "VENDAS -CT (parcela 1 de 3)", 14334], ["11/09/2026", "PANIFICADORA-CT FE", 4360], ["13/09/2026", "MP *JEFFERSO-CT", 4400], ["13/09/2026", "MP *BARRACAB-CT", 1500], ["13/09/2026", "LASA -CT", 11392], ["13/09/2026", "SHOPPING GUA-CT PES", 9480], ["13/09/2026", "VENDAS -CT", 2400], ["14/09/2026", "MP *BARRACAB-CT", 5037], ["14/09/2026", "MERCADINHO M-CT IO", 350], ["14/09/2026", "VENDAS -CT", 1040], ["14/09/2026", "MP *PANIFICA-CT A", 2400], ["14/09/2026", "MP *BARRACAB-CT", 3022], ["14/09/2026", "JIM.COM* GED-CT N (parcela 1 de 3)", 47253], ["14/09/2026", "JIM.COM* GED-CT N (parcela 1 de 2)", 31035], ["15/09/2026", "MP *BARRACAB-CT", 3022], ["15/09/2026", "MP *BARRACAO-CT V", 2600], ["15/09/2026", "MERCADO BOI -CT", 4562], ["15/09/2026", "VENDAS -CT (parcela 1 de 2)", 32250], ["17/09/2026", "VENDAS -CT", 31000], ["18/09/2026", "MERCADINHO M-CT IO", 350], ["18/09/2026", "PANIFICADORA-CT FE", 600], ["18/09/2026", "JIM.COM* GED-CT N CAR", 532], ["19/09/2026", "ATACABOM -CT", 147386], ["20/09/2026", "VENDAS -CT", 520], ["20/09/2026", "VENDAS -CT", 500], ["22/09/2026", "MERCADINHO M-CT FICA", 990], ["22/09/2026", "MERCADINHO M-CT FICA", 990], ["22/09/2026", "VENDAS -CT", 37500], ["22/09/2026", "AutoPosto -CT", 11000], ["24/09/2026", "MP *PANIFICA-CT A", 2000], ["02/10/2026", "MERCADINHO M-CT IO", 1500], ["03/10/2026", "MP *AMENDOIN-CT", 4000], ["03/10/2026", "MERCADINHO M-CT IO", 1000], ["03/10/2026", "VENDAS -CT", 1500], ["03/10/2026", "SUPERMERCADO-CT O MIX", 1472], ["04/10/2026", "JIM.COM* 561-CT 5 JOS", 1400], ["07/10/2026", "ARMAZEM JOAO-CT DEUS", 4150]]}];
+const VENC = "16/10/2026";
+const BANCO = "Itaú";
+const TOTAL_FATURA = 644602;
 
-const brl = c => "R$ " + (c/100).toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
-const KEY = "fatura-inter-2026-10";
+const brl = c => (c < 0 ? "- " : "") + "R$ " + (Math.abs(c)/100).toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const KEY = "fatura-" + BANCO.toLowerCase() + "-" + VENC.split("/").reverse().join("-");
 let checked = new Set();
 let who = "";
 
@@ -268,7 +217,7 @@ function buildMessage() {
   const sel = selected();
   const sum = sel.reduce((s, x) => s + x.it[2], 0);
   const name = whoInput.value.trim();
-  let t = "Fatura Inter 07/10/2026\n";
+  let t = "Fatura " + BANCO + " " + VENC + "\n";
   t += "Nome: " + name + "\n\n";
   let last = "";
   sel.forEach(x => {
@@ -316,6 +265,9 @@ document.getElementById("copy").addEventListener("click", async () => {
   }
 });
 
+document.getElementById("h1").textContent = "Fatura " + BANCO + " – vence " + VENC;
+document.getElementById("sub").textContent = "Total da fatura: " + brl(TOTAL_FATURA);
+document.title = "Checklist da fatura " + BANCO + " – " + VENC;
 update();
 </script>
 </body>
